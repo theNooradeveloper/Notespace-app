@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notespace Dashboard</title>
+    <link rel="shortcut icon" href="./images/diary.avif" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>[NOTESPACE]</h2>
+        <button class="sidebar-btn " id="dashboard">Dashboard</button>
+        <button class="btn create-btn create-new-note">Create Notes</button>
+        <button class="sidebar-btn create-btn" id="create-canvas-btn">Create Canvas</button>
+        <hr />
+        <button class="sidebar-btn nav-btn" id="bookmarked-btn">Bookmarked</button>
+        <button class="sidebar-btn nav-btn" id="all-notes">All Notes</button>
+        <button class="sidebar-btn nav-btn">All Canvas</button>
+    </div>
+
+    <div class="main-container">
+        <div class="top-content">
+            <!-- dashboard heading -->
+            <div class="user-and-dashboard">
+                <p id="welcome-msg">welcome, <span id="welcome-username">User</span>🖐</p>
+                <h1 id="dashboard-title">Dashboard</h1>
+            </div>
+            <!-- search bar -->
+            <div class="search-and-profile">
+                <div class="search-bar">
+                    <input type="text" name="" id="userinput" placeholder="Search by keyword or xx/yy/zzz"
+                        autocomplete="off">
+                    <i class="fas fa-search"></i>
+                </div>
+                <!-- profile icon -->
+
+                <button id="guest-profile" class="hide">
+                    <img src="./images/default-profile.png" alt="main profile image" class="main-profile-image">
+                    <!-- <i class="fa-solid fa-user"></i> -->
+                </button>
+                <button id="login-now">Log In</button>
+                <div class="profile-popup">
+                    <div id="userprofile-pic">
+                        <img src="./images/default-profile.png" alt="user profile pic" title="profile"
+                            class="user-selected-image">
+                        <i class="fas fa-user-edit" id="user-edit-icon"></i>
+                    </div>
+                    <div class="profile-lists">
+                        <img src="./images/profile2.png" alt="profile images" class="profile-list-images"
+                            title="monkey">
+                        <img src="./images/profile3.png" alt="profile images" class="profile-list-images" title="panda">
+                        <img src="./images/profile4.png" alt="profile images" class="profile-list-images"
+                            title="penguin">
+                        <button id="upload-profileimage">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <input type="file" class="select-from-folder" accept="image/*" style="display: none;">
+                    </div>
+                    <h2 id="popup-username" style="font-weight: 400;">Noora</h2>
+                    <p id="popup-useremail">noorakoufin638@gmail.com</p>
+                    <button id="logout">Logout</button>
+                </div>
+            </div>
+        </div>
+        <div class="hero-section">
+            <!-- hero section content -->
+            <div class="hero-content one"></div>
+            <div class="hero-content two">
+                <div class="sub-content">
+                    <p style="color: white;letter-spacing: 1px;">Capture your thoughts, ideas, and inspirations
+                        seamlessly with our notes widget.</p>
+                    <button class="create-note-btn create-new-note">Create Notes</button>
+                </div>
+                <img src="./images/notesdrawing.avif" alt="">
+            </div>
+            <div class="hero-content three" style="background-color:#b2d2d1 ;gap: 10px;">
+                <img src="./images/diary.avif" alt="" style="width: 109px;
+    height: 92px;">
+                <div class="sub-content">
+                    <p style="color: white;letter-spacing: 1px;">Unleash your creativity by sketching and doodling on
+                        our interactive canvas</p>
+                    <button class="create-canvas-btn" style="background-color: #4d555d;">Create
+                        Canvas</button>
+                </div>
+            </div>
+        </div>
+        <div class="notes-container"></div>
+    </div>
+    </div>
+    <!-- modal popup -->
+    <div id="modal-container">
+        <div class="modal-background">
+            <div class="modal">
+                <p id="modal-msg"></p>
+                <button id="modal-action-btn"></button>
+                <button id="close-modal" title="Close modal"><i class="fa-solid fa-x"></i></button>
+            </div>
+        </div>
+    </div>
+    <!-- overlay container -->
+    <div class="overlay">
+        <div class="overlay-content">
+            <h1 id="my-notes-heading">write your world</h1>
+            <section class="notes-bg">
+                <main>
+                    <div class="toolbar">
+                        <!-- font styling -->
+                        <div class="basic-operations">
+                            <button id="bold" class="option-button"> <i class="fa-solid fa-bold"
+                                    title="Bold"></i></button>
+                            <button id="italic" class="option-button"> <i class="fa-solid fa-italic"
+                                    title="Italic"></i></button>
+                            <button id="underline" class="option-button"> <i class="fa-solid fa-underline"
+                                    title="Underline"></i></button>
+
+                            <!-- List -->
+                            <button id="insertOrderedList" class="option-button">
+                                <i class="fa-solid fa-list-ol" title="ordered list"></i>
+                            </button>
+                            <button id="insertUnorderedList" class="option-button">
+                                <i class="fa-solid fa-list-ul" title="Unordered list"></i>
+                            </button>
+
+                            <!-- text align -->
+                            <button id="justifyCenter" class="option-button"> <i class="fa-solid fa-align-center"
+                                    title="align-center"></i></button>
+                            <button id="justifyLeft" class="option-button"> <i class="fa-solid fa-align-left"
+                                    title="align-left"></i></button>
+                            <button id="justifyRight" class="option-button"> <i class="fa-solid fa-align-right"
+                                    title="align-right"></i></button>
+
+                            <!-- Undo/Redo -->
+                            <button id="undo" class="option-button">
+                                <i class="fa-solid fa-rotate-left" title="Undo"></i>
+                            </button>
+                            <button id="redo" class="option-button">
+                                <i class="fa-solid fa-rotate-right" title="Redo"></i>
+                            </button>
+
+                            <!-- image -->
+                            <div class="image-wrapper">
+                                <button class="adv-option-button" id="image-icon"> <i class="fa-regular fa-image"
+                                        title="Insert Image"></i></button>
+                            </div>
+                            <input type="file" name="image" id="insert-image" accept="image/*" style="display: none;">
+                        </div>
+
+                        <!-- advanced operations -->
+                        <div class="advanced-operations">
+                            <!-- fore color -->
+                            <div class="input-wrapper">
+                                <input type="color" id="foreColor" class="adv-option-button" value="#97caf4" />
+                                <label for="foreColor">Font Color</label>
+                            </div>
+                            <!-- background color -->
+                            <div class="input-wrapper">
+                                <input type="color" id="backColor" class="adv-option-button" value="#f4e397" />
+                                <label for="backColor">Highlight Color</label>
+                            </div>
+                            <!-- font lists -->
+                            <select id="fontName" class="adv-option-button"></select>
+                            <select id="fontSize" class="adv-option-button"></select>
+
+                        </div>
+                    </div>
+                    <div class='textarea' spellcheck="false" contenteditable="true">
+                    </div>
+                </main>
+                <div class="bg-select-container">
+                    <span id="bg1"></span>
+                    <span id="bg2"></span>
+                    <span id="bg3"></span>
+                    <span id="bg4"><input type="color" value="#fda7a7"></span>
+                </div>
+            </section>
+            <div class="create-btn">
+                <button id="create-note">Create Note</button>
+            </div>
+            <button id="close-note" title="Close"><i class="fa-solid fa-x"></i></button>
+        </div>
+    </div>
+    <script src="script.js" type="module"></script>
+
+</body>
+
+</html>
