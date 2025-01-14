@@ -1,46 +1,93 @@
-if (textArea.innerHTML.trim() === '' || textArea.innerText.trim() === '') //might contain non-visible html tags
-{
-    textArea.style.border = '2px solid red';
-    alert('Cannot create empty note.Please add some content');
-    return;
+function showBookmarkedNotes() {
+    let subContainer = document.querySelectorAll('.sub-container');
+    let notesContainer = document.querySelector('.notes-container');
+
+    // Hide welcome message and hero section
+    welcomeMsg.classList.add('hide');
+    heroSection.classList.add('hide');
+    dashboardTitle.innerText = 'Bookmarked';
+
+    // Remove any existing "no results" message
+    let noResultsMessage = notesContainer.querySelector('.no-results');
+    if (noResultsMessage) noResultsMessage.remove();
+
+    let hasBookmarks = false;
+
+    // Iterate through all note containers
+    subContainer.forEach((container) => {
+        let bookmarkIcon = container.querySelector('.final-notes-container #bookmark-note i');
+        if (bookmarkIcon && bookmarkIcon.classList.contains('bookmarked')) {
+            container.style.display = 'flex';
+            hasBookmarks = true;
+        } else {
+            container.style.display = 'none';
+        }
+    });
+
+    // If no bookmarks, display "no bookmarked notes" message
+    if (!hasBookmarks) {
+        let noBookmarks = document.createElement('div');
+        noBookmarks.className = 'no-results no-bookmarks';
+        noBookmarks.textContent = 'No bookmarked notes available';
+        notesContainer.appendChild(noBookmarks);
+    }
 }
 
-//resetting border to neutral state
-textArea.style.border = ''
-overlayContainer.style.display = 'none';
 
-let selectedBackground = textArea.style.cssText;
-let currentDate = new Date().toLocaleDateString();
-let noteText = textArea.innerHTML;
-if (noteToEdit) {
-    // Update existing note
-    noteToEdit.querySelector('.user-text').innerHTML = noteText;
-    noteToEdit.style.cssText = selectedBackground;
-    noteToEdit.querySelector('.date').innerText = currentDate;
 
-    // Reset editing state
-    noteToEdit = null;
-    createNoteBtn.innerText = 'Create Note';
-    return;
+
+
+function showAllNotes() {
+    let subContainer = document.querySelectorAll('.sub-container')
+    let notesPresent = subContainer.length > 0
+    let notesContainer = document.querySelector('.notes-container');
+
+    welcomeMsg.classList.add('hide');
+    heroSection.classList.add('hide');
+    dashboardTitle.innerText = 'All Notes';
+    if (!notesPresent) {
+        if (!notesContainer.querySelector('.no-results')) {
+            let noBookmarkMsg = notesContainer.querySelector('no-bookmarks')
+            if (noBookmarkMsg) noBookmarkMsg.remove();
+            let noResultsMessage = document.createElement('div');
+            noResultsMessage.className = 'no-results no-notes';
+            noResultsMessage.textContent = 'No notes available';
+            notesContainer.appendChild(noResultsMessage);
+        }
+    }
+    else {
+        let noResults = notesContainer.querySelector('.no-results');
+        if (noResults) noResults.remove();
+        subContainer.forEach((container) => {
+            container.style.display = 'flex'
+        })
+    }
 }
 
-//create new note
-let subContainer = document.createElement('div');
-subContainer.classList.add('sub-container')
-subContainer.innerHTML = ` <section class="final-notes-container" tabindex="1" style='${selectedBackground}'>
-<div class="user-text"> ${noteText}</div>
-<div class="date_icon">
-    <div class="date">${currentDate}</div>
-    <div class="icons">
-    <button id="bookmark-note" title='Bookmark'><i class="fa-regular fa-bookmark"></i></button>
-        <button id="edit-note" title='Edit'><i class="fa-regular fa-pen-to-square"></i></button>
-        <button id="delete-note" title='Delete'> <i class="fa-solid fa-trash"></i></button>
-    </div>
-</div>
-</section>`
+function showBookmarkedNotes() {
+    welcomeMsg.classList.add('hide');
+    heroSection.classList.add('hide');
+    dashboardTitle.innerText = 'Bookmarked'
 
-notesContainer.appendChild(subContainer);
-let currentNote = subContainer.querySelector('.final-notes-container')
-subContainer.addEventListener('click', (e) => {
-    editDeleteBookmarkNote(e, currentNote)
-})
+    subContainer.forEach((container) => {
+        if (container.querySelector('.final-notes-container #bookmark-note i').classList.contains('bookmarked')) {
+            let notesPresent = container.length > 0
+            if (!notesPresent) {
+                if (!notesContainer.querySelector('.no-results')) {
+                    let noNotesMsg = notesContainer.querySelector('no-notes')
+                    if (noNotesMsg) noNotesMsg.remove();
+                    let noResultsMessage = document.createElement('div');
+                    noResultsMessage.className = 'no-results';
+                    noResultsMessage.textContent = 'No Bookmarked notes available';
+                    notesContainer.appendChild(noResultsMessage);
+                    container.style.display = 'none';
+                }
+                else {
+                    let noResults = notesContainer.querySelector('.no-results');
+                    if (noResults) noResults.remove();
+                    container.style.display = 'flex';
+                }
+            }
+        }
+    })
+}
