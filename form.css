@@ -79,7 +79,6 @@ form .field input[type="submit"]:hover {
     justify-content: center;
     align-items: center;
     transition: transform 0.6s cubic-bezier(0, 0, 0.2, 1);
-    ;
     overflow: hidden;
     width: 325px;
 }
@@ -105,22 +104,6 @@ form .signup-link {
     color: #8b9ad2;
 }
 
-.form-holder .fa-circle-check,
-.form-holder .fa-circle-exclamation {
-    position: absolute;
-    right: 7px;
-    top: 15px;
-    color: #8b9ad2;
-    visibility: hidden;
-}
-
-.form-holder small.error-message {
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    font-size: 0.8rem;
-    visibility: hidden;
-}
 
 .form-control {
     border: none;
@@ -136,35 +119,9 @@ form .signup-link {
     padding-left: 35px;
     position: relative;
 }
-
-.form-holder.error .form-control {
-    margin-bottom: 40px;
-}
-
-.form-holder.success .fa-circle-check,
-.form-holder.error .fa-circle-exclamation {
-    visibility: visible;
-}
-
-.form-holder.success .fa-circle-check {
-    color: #99e175;
-}
-
-.form-holder.error .fa-circle-exclamation {
-    color: #e74949;
-}
-
-.form-holder.error small.error-message {
-    visibility: visible;
-    color: red;
-}
-
-
 .form-control:focus {
     border-bottom: 2px solid #accffe;
 }
-
-
 :focus {
     outline: none;
 }
@@ -182,23 +139,6 @@ form .signup-link {
     text-decoration: underline;
 }
 
-.pass-requirements {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.7rem;
-    display: none;
-
-}
-
-span.pass-req {
-    display: inline-block;
-    padding: 0 42px 10px 27px;
-}
-
-.pass-req.valid {
-    color: #99e175;
-}
-
 .fa-eye-slash,
 .fa-eye {
     position: absolute;
@@ -211,22 +151,6 @@ span.pass-req {
 
 .form-control:nth-child(4) {
     position: relative;
-}
-
-.pass-req.valid:before {
-    position: relative;
-    left: -17px;
-    content: "✔";
-}
-
-.pass-req.invalid {
-    color: #e74949;
-}
-
-.pass-req.invalid:before {
-    position: relative;
-    left: -17px;
-    content: "✖";
 }
 
 ::placeholder {
@@ -266,9 +190,7 @@ span.pass-req {
     justify-content: center;
     align-items: center;
     z-index: 100;
-    /* display: none; */
-    /* initially hidden */
-}
+ }
 
 .loader:before,
 .loader:after {

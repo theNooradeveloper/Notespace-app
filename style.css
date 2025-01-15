@@ -83,7 +83,6 @@ button {
     background-image:
         repeating-linear-gradient(to right, #ccc, #ccc 1px, transparent 1px, transparent 20px),
         repeating-linear-gradient(to bottom, #ccc, #ccc 1px, transparent 1px, transparent 20px);
-    /* background-image: repeating-linear-gradient( to bottom, #fff, #fff 29px, #ccc 30px, #ccc 31px ); */
     padding-top: 31px;
     background-size: 20px 20px;
 }
@@ -113,7 +112,6 @@ button {
     height: 93%;
     overflow-y: auto;
     font-family: 'Marck Script', cursive;
-    /* font-family: "Caveat", serif; */
     background-color: transparent;
     font-size: 16px;
     line-height: 30px;
@@ -629,7 +627,6 @@ input[type='text'] {
 }
 
 input[type='text']:focus {
-    /* padding: 13px 20px 13px 130px; */
     width: 350px;
     border: 2px solid rgb(191, 190, 190);
 }
@@ -915,8 +912,6 @@ button#close-modal:hover {
     justify-content: center;
     align-items: center;
     z-index: 100;
-    /* display: none; */
-    /* initially hidden */
 }
 
 .loader:before,
@@ -924,7 +919,7 @@ button#close-modal:hover {
     content: "";
     grid-area: 1/1;
     height: inherit;
-    --_g: no-repeat radial-gradient(farthest-side, #8b9ad2 94%, #0000);
+    --_g: no-repeat radial-gradient(farthest-side, hsl(17, 26%, 65%) 94%, #0000);
     background:
         var(--_g) left,
         var(--_g) right;

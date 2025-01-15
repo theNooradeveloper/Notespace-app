@@ -8,8 +8,7 @@ const guestProfile = document.getElementById('guest-profile');
 document.addEventListener('DOMContentLoaded', () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log("User is signed in:", user);
-            // welcomeMsg.style.display = 'block';
+            console.log("User is signed in:");
             let welcomeUsername = welcomeMsg.querySelector('#welcome-username');
             let popupUsername = document.getElementById('popup-username');
             let popupUseremail = document.getElementById('popup-useremail');
@@ -54,6 +53,13 @@ newNoteBtns.forEach((newNoteBtn) => {
         createNoteBtn.disabled = true
         document.querySelector('.date_icon .date').innerHTML = new Date().toLocaleDateString()
 
+    })
+})
+//create canvas btn
+let createCanvasBtns = document.querySelectorAll('.create-canvas-btn')
+createCanvasBtns.forEach((createCanvasBtn) => {
+    createCanvasBtn.addEventListener('click', () => {
+        displayAlertMessage('Feature unavailable at this time.', 'OK')
     })
 })
 
@@ -144,16 +150,14 @@ background-color: #faf8f8;`;
             textArea.style.backgroundColor = color;
             textArea.style.backgroundImage = 'unset';
         })
-        // colorPicker.click()
     }
 }
 
 //to remove the red border
 textArea.addEventListener('input', () => {
-    //if the user clears after typing
     createNoteBtn.disabled = false
     if (textArea.innerText.trim() !== '')
-        textArea.style.border = '1px solid black';
+        textArea.style.border = '';
     else textArea.style.border = '2px solid red';
 })
 
@@ -167,7 +171,6 @@ async function createOrUpdateNote() {
 
     const currentUser = auth.currentUser;
     if (!currentUser) {
-        alert('You need to log in to create or save notes.');
         return;
     }
 
@@ -193,7 +196,7 @@ async function createOrUpdateNote() {
         noteToEdit.querySelector('.user-text').innerHTML = noteText;
         noteToEdit.style.cssText = selectedBackground;
         noteToEdit.querySelector('.date').innerText = currentDate;
-
+        //resets to null to update note is no longer being updated
         noteToEdit = null;
         createNoteBtn.innerText = 'Create Note';
         overlayContainer.style.display = 'none';
@@ -214,7 +217,7 @@ async function createOrUpdateNote() {
         console.log('Note saved successfully');
     } catch (error) {
         console.error('Error saving note:', error);
-        alert('Failed to save note. Please try again.');
+        displayAlertMessage('Failed to save note. Please try again.', 'OK');
     }
 
     // Add the new note to the DOM
@@ -231,34 +234,15 @@ async function createOrUpdateNote() {
             </div>
         </div>
     </section>`;
-
     notesContainer.appendChild(subContainer);
     let currentNote = subContainer.querySelector('.final-notes-container');
     subContainer.addEventListener('click', (e) => {
         editDeleteBookmarkNote(e, currentNote);
     });
     overlayContainer.style.display = 'none';
+    textArea.style.border = '';
 }
 
-
-//function to edit ,delete and bookmark note
-// function editDeleteBookmarkNote(event, currentNote) {
-//     if (event.target.closest('#delete-note')) {
-//         currentNote.parentNode.remove();
-//     }
-//     if (event.target.closest('#edit-note')) {
-//         overlayContainer.style.display = 'flex';
-//         textArea.innerHTML = currentNote.querySelector('.user-text').innerHTML;
-//         textArea.style.cssText = currentNote.style.cssText;
-//         // Set the noteToEdit reference so we can update it later
-//         noteToEdit = currentNote;
-//         createNoteBtn.innerText = 'Save Note';
-//     }
-//     if (event.target.closest('#bookmark-note')) {
-//         let bookmarkNoteBtn = currentNote.querySelector('#bookmark-note');
-//         bookmarkNoteBtn.querySelector('i').classList.toggle('bookmarked');
-//     }
-// }
 
 async function editDeleteBookmarkNote(event, currentNote) {
     const currentUser = auth.currentUser;
@@ -288,11 +272,8 @@ async function editDeleteBookmarkNote(event, currentNote) {
         if (event.target.closest('#bookmark-note')) {
             const noteId = currentNote.dataset.id;
             const noteDocRef = doc(notesRef, noteId);
-
-            // Locate the <i> icon, even if the user clicks on the button
             const bookmarkButton = event.target.closest('#bookmark-note');
             const bookmarkIcon = bookmarkButton.querySelector('i');
-
             const isCurrentlyBookmarked = bookmarkIcon.classList.contains('bookmarked');
             const newBookmarkState = !isCurrentlyBookmarked;
 
@@ -308,7 +289,7 @@ async function editDeleteBookmarkNote(event, currentNote) {
         }
     } catch (error) {
         console.error('Error handling note action:', error.code, error.message);
-        alert('Something went wrong. Please try again.');
+        displayAlertMessage('Something went wrong. Please try again.', 'OK');
     }
 }
 
@@ -320,6 +301,7 @@ imageIcon.addEventListener('click', () => {
 })
 //function to upload the image
 function uploadImage() {
+    //retrieves the file input ele
     const imageUpload = document.getElementById('insert-image');
     imageUpload.click();
     imageUpload.addEventListener('change', (e) => {
@@ -327,17 +309,16 @@ function uploadImage() {
         if (file) {
             //read the content's of file stored on the user's comp
             const reader = new FileReader();
+            //triggered when the file has been successfully read
             reader.onload = (e) => {
                 console.log(e.target.result);
-
                 const image = document.createElement('img')
-                image.src = e.target.result;
+                image.src = e.target.result; //the result of reading the file
                 image.classList.add('image');
                 image.style.maxWidth = '100%';
                 image.style.maxHeight = '100px';
                 image.style.cursor = 'pointer';
                 image.title = 'Double click to delete';
-                image.contentEditable = true
                 textArea.appendChild(image);
                 imageUpload.value = ''
                 //to delete the image
@@ -345,6 +326,7 @@ function uploadImage() {
                     image.remove();
                 })
             }
+            //to show on the browser
             reader.readAsDataURL(file);
         }
     })
@@ -450,13 +432,13 @@ function searchNotesByDateOrKeyword(searchQuery) {
         const noteTextElement = note.querySelector('.user-text')
         let noteText = noteTextElement.textContent.trim();
         if (createdDate === searchQuery || noteText.includes(searchQuery)) {
-            console.log('match found', note);
-            highlightText(noteTextElement, searchQuery)
+            // console.log('match found', note);
+            // highlightText(noteTextElement, searchQuery)
             note.style.display = 'flex';
             notesFound = true
         }
         else {
-            console.log('match not found', note);
+            // console.log('match not found', note);
             note.style.display = 'none';
         }
     })
@@ -473,7 +455,6 @@ function searchNotesByDateOrKeyword(searchQuery) {
             noResultsMessage.textContent = 'No matches are found';
             notesContainer.appendChild(noResultsMessage);
         }
-        // heroSection.style.display = 'grid';
     }
 
 }
@@ -494,12 +475,12 @@ function resetNotesView() {
 searchNotesOnKeyup()
 
 // //function to highlight the search text
-function highlightText(element, searchQuery) {
-    const regex = new RegExp(`(${searchQuery})`, 'gi'); // Create a case-insensitive regex to match the search query
-    const originalText = element.textContent;
-    const highlightedText = originalText.replace(regex, `<span class="highlight">$1</span>`); // Wrap matches in a span with the 'highlight' class
-    element.innerHTML = highlightedText;
-}
+// function highlightText(element, searchQuery) {
+//     const regex = new RegExp(`(${searchQuery})`, 'gi'); // Create a case-insensitive regex to match the search query
+//     const originalText = element.textContent;
+//     const highlightedText = originalText.replace(regex, `<span class="highlight">$1</span>`); // Wrap matches in a span with the 'highlight' class
+//     element.innerHTML = highlightedText;
+// }
 
 
 //navigating to pages on clicking on sidebar buttons
@@ -511,7 +492,6 @@ dashboardBtn.addEventListener('click', () => {
 const allNotesBtn = document.getElementById('all-notes');
 const heroSection = document.querySelector('.hero-section');
 const dashboardTitle = document.getElementById('dashboard-title');
-let subContainer = document.querySelectorAll('.sub-container');
 const bookmarkBtn = document.getElementById('bookmarked-btn');
 
 //to show all notes on btn click
@@ -596,6 +576,7 @@ function showBookmarkedNotes() {
 
 let modalContainer = document.getElementById('modal-container');
 const modalActionBtn = document.getElementById('modal-action-btn');
+
 function displayAlertMessage(msg, action) {
     modalContainer.classList.remove('out');
     modalContainer.classList.add('two');
@@ -617,7 +598,14 @@ closeModal();
 
 //direct to login page
 modalActionBtn.onclick = () => {
-    window.open('form.html', '_blank')
+    if (modalActionBtn.innerText === 'LogIn')
+        window.open('form.html', '_blank')
+    else {
+        modalContainer.classList.add('out');
+        setTimeout(() => {
+            modalContainer.classList.remove('two');
+        }, 1000)
+    }
 }
 loginNow.onclick = () => {
     window.open('form.html', '_blank')
@@ -646,8 +634,8 @@ if (logoutButton) {
 }
 // Logout function
 function logoutUser() {
-    const auth = getAuth();
     showSpinner()
+    const auth = getAuth();
     signOut(auth)
         .then(() => {
             console.log("User logged out successfully.");
@@ -664,11 +652,14 @@ function logoutUser() {
         });
 }
 
-
+//fetching the notes from Firestore
 async function loadUserNotes() {
+    showSpinner();
     const currentUser = auth.currentUser;
-    if (!currentUser) return;
-
+    if (!currentUser) {
+        removeSpinner();
+        return;
+    }
     const userId = currentUser.uid;
     const notesRef = collection(db, 'users', userId, 'notes');
 
@@ -702,7 +693,10 @@ async function loadUserNotes() {
         });
     } catch (error) {
         console.error('Error loading notes:', error);
-        alert('Failed to load notes. Please try again.');
+        displayAlertMessage('Failed to load notes. Please try again.', 'OK');
+    } finally {
+        // Remove the spinner after data loading is complete
+        removeSpinner();
     }
 }
 

@@ -8,23 +8,20 @@ loginForm.addEventListener('submit', (e) => {
   loginUser(email, password);
 });
 
-// Login form handling
 function loginUser(email, password) {
-  // Ensure email, password, are provided
+
   if (!email || !password) {
-    displayAlertMessage('Email and password are required!', 'Ok');// Display alert message
-    console.log('email:'+ email,'password'+password);
-    
+    displayAlertMessage('Email and password are required!', 'Ok');
+    // console.log('email:'+ email,'password'+password);
     return;
   }
   const auth = getAuth();
   showSpinner();
-  // console.log('Email:', email, 'Password:', password);
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log("User logged in:", user);
-      removeSpinner()
+      // console.log("User logged in:",user);
+      removeSpinner();
       displayAlertMessage('Welcome back! Loggedin sucessfully', 'ok')
       setTimeout(() => {
         window.location.href = 'index.html'
@@ -92,7 +89,10 @@ async function googleSignIn() {
 
     if (user.displayName) {
       removeSpinner();
-      displayAlertMessage('Welcome ' + user.displayName, 'Ok');
+      displayAlertMessage('Welcome! Registration successful', 'OK')
+      setTimeout(() => {
+        window.location.href = 'index.html'
+      }, 3000)
     } else {
       updateProfile(user, { displayName: 'Guest' })
         .then(() => {
@@ -116,7 +116,6 @@ async function googleSignIn() {
   }
 }
 
-// Attach the Google sign-in function to the button
 document.getElementById('google-signin-btn').addEventListener('click', googleSignIn);
 
 // Function to show spinner
