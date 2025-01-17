@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/diary.avif" type="image/x-icon">
+    <title>NoteSpace About the App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gloria+Hallelujah&family=Gochi+Hand&family=Graduate&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+
+        body {
+            font-family: "Sour Gummy", serif !important;
+            background-image: url('https://excalidraw.nyc3.cdn.digitaloceanspaces.com/lp-cms/media/home-hero.svg');
+            color: hsl(18deg 9.41% 41.21%);
+            margin: 0 2rem;
+            background-color: #fefdfdc7;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: hsl(18deg 22.77% 35.87%);
+        }
+
+        .app-header p {
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            line-height: 35px;
+            text-align: justify;
+            margin-bottom: 2rem;
+            text-indent: 61px;
+        }
+
+        ul {
+            margin: 1rem;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        li {
+            padding: 10px;
+        }
+
+        h3 {
+            font-size: 1.7rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .app-header h1 {
+            font-size: 3.2rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .app-header {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin: auto;
+            margin-top: 3rem;
+        }
+
+        .accordian-container {
+            width: 75%;
+            margin: auto;
+            margin-bottom: 2rem;
+        }
+
+        .question {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 21px;
+            background-color: hsl(18deg 56.02% 91.9%);
+            color: hsl(18deg 9.41% 41.21%);
+        }
+
+        ::-webkit-scrollbar {
+            width: .3rem;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #7f7d7d;
+            border-radius: .5rem;
+
+        }
+
+        .answer {
+
+            height: 0;
+            overflow: hidden;
+            transform: scale(0);
+            transition: transform 0.5s ease-in-out;
+            padding: 0;
+        }
+
+        .answer.active {
+            height: fit-content;
+            transform: scale(1);
+            padding: 25px 15px;
+        }
+
+        .answer.active p {
+            font-size: 1rem;
+            letter-spacing: 1px;
+            line-height: 28px;
+        }
+
+        .accordian {
+            background-color: white;
+            margin-bottom: 1.4rem;
+            box-shadow: 1px 1px 4px rgb(225, 224, 224);
+        }
+
+        .accordian-container span {
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="about-app-container">
+        <header class="app-header">
+            <h1 style="text-decoration: underline;">About the App</h1>
+            <p>Welcome to NoteSpace, a feature-rich platform designed to streamline your productivity and spark
+                creativity. Whether you're jotting down important tasks, brainstorming ideas, or crafting detailed
+                visual plans, this app is your ultimate companion for staying organized and creative.Begin your journey
+                to a more organized and creative life. Whether you're managing daily tasks or
+                brainstorming your next big idea, this app is here to support you every step of the way.</p>
+            </p>
+        </header>
+
+        <section class="features-section">
+            <h2 style="text-decoration: underline;">Key Features</h2>
+            <ul class="feature-list">
+                <li>
+                    <h3>Notes Management</h3>
+                    <ul>
+                        <li>Create, edit, and delete notes effortlessly.</li>
+                        <li>Enhance notes with advanced formatting and text styles.</li>
+                        <li>Import images directly into your notes.</li>
+                        <li>Bookmark essential notes for quick access.</li>
+                        <li>Search notes by date or keywords.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Dynamic Canvas</h3>
+                    <ul>
+                        <li>Add shapes and diagrams to bring your ideas to life.</li>
+                        <li>Save canvas outputs as images for sharing.</li>
+                        <li>Enjoy creative freedom with versatile tools.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>To-Do Management</h3>
+                    <ul>
+                        <li>Create and edit detailed to-do lists.</li>
+                        <li>Reorder tasks with drag-and-drop functionality.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Smart Integration</h3>
+                    <ul>
+                        <li>Secure authentication and data storage with Firebase.</li>
+                        <li>Quick Google login for easy access.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section class="why-choose-section" style="padding-left:17px ;">
+            <h2>Why Choose This App?</h2>
+            <h3>Our app offers:</h3>
+            <ul>
+                <li>All-in-one solution for notes, tasks, and creative tools.</li>
+                <li>Customization options for a personalized experience.</li>
+                <li>An intuitive interface to simplify your workflow.</li>
+                <li>Secure and reliable performance with Firebase infrastructure.</li>
+            </ul>
+        </section>
+
+        <section class="faq-section">
+            <h2>FAQs</h2>
+            <div class="accordian-container">
+                <div class="accordian">
+                    <div class="question" onclick="accordian('answer1')">
+                        <h4> What makes this app unique?</h4>
+                        <span><i class="fa-solid fa-caret-down"></i></span>
+                    </div>
+                    <div class="answer" id="answer1">
+                        <p>Our app combines powerful note-taking features with creative tools like a canvas, making it a
+                            one-stop solution for productivity and creativity.</p>
+                    </div>
+                </div>
+                <div class="accordian">
+                    <div class="question" onclick="accordian('answer2')">
+                        <h4>How do I customize my notes?</h4>
+                        <span><i class="fa-solid fa-caret-down"></i></span>
+                    </div>
+                    <div class="answer" id="answer2">
+                        <p>You can personalize your notes by choosing from a variety of colors and fonts. This allows
+                            you to make your notes visually appealing and organized.</p>
+                    </div>
+                </div>
+                <div class="accordian">
+                    <div class="question" onclick="accordian('answer3')">
+                        <h4>Is my data safe and secure?</h4>
+                        <span><i class="fa-solid fa-caret-down"></i></span>
+                    </div>
+                    <div class="answer" id="answer3">
+                        <p>Absolutely! We use Google login and Firebase for secure authentication and cloud storage,
+                            ensuring your data is protected and accessible only to you.</p>
+                    </div>
+                </div>
+                <div class="accordian">
+                    <div class="question" onclick="accordian('answer4')">
+                        <h4>What is the purpose of the canvas feature?</h4>
+                        <span><i class="fa-solid fa-caret-down"></i></span>
+                    </div>
+                    <div class="answer" id="answer4">
+                        <p>The canvas is designed for brainstorming and creativity. It lets you draw, sketch, and create
+                            visual ideas, which you can save and manage alongside your notes.</p>
+                    </div>
+                </div>
+                <div class="accordian">
+                    <div class="question" onclick="accordian('answer5')">
+                        <h4>Will offline functionality be available?</h4>
+                        <span><i class="fa-solid fa-caret-down"></i></span>
+                    </div>
+                    <div class="answer" id="answer5">
+                        <p>Yes, offline functionality is a planned feature. It will allow you to access and manage your
+                            notes even without an internet connection.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+
+        function accordian(accId) {
+            let answers = document.querySelectorAll(".accordian");
+            answers.forEach((answer) => {
+                if (answer.id !== accId)//checking if the id of the answer is not equal to the id of the accordion we want to open
+                {
+                    answer.classList.remove('active')
+                }
+            })
+            document.getElementById(accId).classList.toggle("active");
+        }
+        accordian('answer1');
+    </script>
+</body>
+
+</html>

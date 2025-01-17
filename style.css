@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gloria+Hallelujah&family=Gochi+Hand&family=Graduate&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Patrick+Hand&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gloria+Hallelujah&family=Gochi+Hand&family=Graduate&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Patrick+Hand&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gloria+Hallelujah&family=Gochi+Hand&family=Graduate&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Patrick+Hand&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gloria+Hallelujah&family=Gochi+Hand&family=Graduate&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Patrick+Hand&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Gloria+Hallelujah&family=Gochi+Hand&family=Graduate&family=Just+Another+Hand&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Pacifico&family=Patrick+Hand&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     box-sizing: border-box;
@@ -40,7 +42,15 @@ body {
     font-family: "Sour Gummy", serif;
 
 }
-
+.bg 
+{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f0eaf9' fill-opacity='0.52'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E") !important;
+  
+}
+.bg-no 
+{
+    background-image: unset !important;
+}
 button {
     border: none;
     background-color: transparent;
@@ -51,6 +61,7 @@ button {
     left: 17%;
     width: 83%;
     padding: 1rem;
+    min-height: 100vh;
 }
 
 .notes-container {
@@ -395,11 +406,11 @@ input::-webkit-color-swatch {
 }
 
 .sidebar h2 {
-    font-size: 1.5em;
+    font-size: 1.7em;
     margin-bottom: 20px;
     color: #6a6767;
-    font-family: I Love Glitter;
-
+    font-family: "Just Another Hand", serif;
+    letter-spacing: 2px;
 }
 
 .sidebar .sidebar-btn,
@@ -613,7 +624,7 @@ input::-webkit-color-swatch {
 }
 
 
-input[type='text'] {
+.search-bar input[type='text'] {
 
     background-color: transparent;
     border: 2px solid rgb(191, 190, 190);
@@ -626,7 +637,7 @@ input[type='text'] {
     font-size: 1rem;
 }
 
-input[type='text']:focus {
+.search-bar input[type='text']:focus {
     width: 350px;
     border: 2px solid rgb(191, 190, 190);
 }
@@ -636,7 +647,7 @@ input[type='text']:focus-visible {
 
 }
 
-::placeholder {
+.search-bar ::placeholder {
     font-size: 0.9rem;
     font-family: inherit;
 }
@@ -961,7 +972,7 @@ button#close-modal:hover {
 
 #login-now {
     font-family: 'Sour Gummy';
-    padding:8px 12px;
+    padding: 8px 12px;
     background-color: hsl(17, 26%, 65%);
     color: white;
     border: none;
@@ -979,11 +990,275 @@ button#close-modal:hover {
 #guest-profile.hide {
     display: none;
 }
+
 #guest-profile.show {
     display: block;
 }
-.highlight
-{
+
+.highlight {
     background-color: yellow;
     font-weight: bold;
+}
+
+/* todo */
+.todo-section {
+    width: 70%;
+    margin: auto;
+    background: #f8ede9;
+    background-image: radial-gradient(#bfc0c1 7.2%, transparent 0);
+    background-size: 25px 25px;
+    padding: 3rem 4rem;
+    border-radius: 20px;
+    margin-top: 3rem;
+    display: none;
+    margin-bottom: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.todo_wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.todo-section form {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.todo-section ::placeholder {
+    color: rgb(70, 70, 70);
+}
+
+#todo-text-box {
+    background: none;
+    border: 2px solid grey;
+    padding: 12px 30px;
+    width: 100%;
+    color: #3c3a3a;
+    caret-color: #716759;
+    border-radius: 1000px;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    font-family: inherit;
+    user-select: none;
+}
+
+
+#todo-text-box:focus {
+    outline: none;
+    border: 2px solid #969696;
+}
+
+#todo-add-button {
+    position: absolute;
+    top: 0;
+    border-radius: 1000px;
+    right: 0;
+    border: none;
+    background-color: hsl(17, 26%, 65%);
+    padding: 0 19px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    height: 100%;
+    font-family: inherit;
+    width: 112px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#todo-add-button:hover {
+    background-color: hsl(18deg 21.46% 47.93%);
+}
+
+ul {
+    width: 100%;
+}
+
+.todo {
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    padding: 0 16px;
+    background-color: #eedcd6;
+    border-radius: 15px;
+    color: #5e5b5b;
+    display: flex;
+    align-items: center;
+}
+
+.todo.completed {
+    background-color: #acbfac;
+}
+
+.todo .editInput,
+.todo .todoText {
+    padding: 16px;
+    letter-spacing: 1px;
+    padding-right: 0;
+    flex-grow: 1;
+    user-select: none;
+    transition: 200ms ease;
+}
+
+.todo .editInput {
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #5e5b5b;
+}
+
+.delete-btn {
+    padding: 3px;
+    background: none;
+    border: none;
+    color: #5e5b5b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.delete-btn svg {
+    transition: 200ms ease;
+}
+
+.delete-btn:hover svg {
+    fill: #b8072a;
+}
+
+.custom-checkbox {
+    border-radius: 50%;
+    min-height: 20px;
+    min-width: 20px;
+    border: 2px solid #5e5b5b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    transition: 200ms ease;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked~.custom-checkbox {
+    border: none;
+}
+
+input[type="checkbox"]:checked~.custom-checkbox svg {
+    fill: #5e5b5b;
+    height: 30px;
+    width: 30px;
+}
+
+input[type="checkbox"]:checked~.todoText {
+    text-decoration: line-through;
+    color: rgb(58 56 56);
+    text-decoration-color: #4d4a4a;
+    text-decoration-style: double;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+
+/* media query */
+
+@media (max-width:800px) {
+    main {
+        width: 90%;
+        padding: 2rem;
+    }
+
+    #todo_heading {
+        width: 30%;
+    }
+}
+
+@media(max-width: 500px) {
+    html {
+        font-size: 12pt;
+    }
+
+    #todo_heading {
+        width: 62%;
+    }
+
+    #add-button {
+        position: unset;
+        width: 100%;
+        margin-top: 10px;
+        padding: 15px;
+        height: auto;
+    }
+
+    h1 {
+        margin-top: 50px;
+        font-size: 15vw;
+    }
+}
+
+@media(max-width: 390px) {
+    main {
+        width: 95%;
+        padding: 10px;
+        padding-top: 2rem;
+    }
+
+    .todo .todoText {
+        padding: 14px;
+    }
+
+    #todo_heading {
+        width: 60%;
+    }
+
+    html {
+        font-size: 13px;
+    }
+}
+
+.drag_started {
+    background-color: rgb(248 202 202);
+    border: 2px dotted grey;
+}
+
+.cursor {
+    cursor: grab;
+}
+
+/* //small loader */
+
+.small-loader-parent {
+    width: 100%;
+}
+
+.small-loader {
+    width: 29px;
+    display: inline-flex;
+    padding: 5px;
+    align-items: center;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: hsl(13.93deg 32.56% 108.27%);
+    --_m:
+        conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+    to {
+        transform: rotate(1turn)
+    }
 }

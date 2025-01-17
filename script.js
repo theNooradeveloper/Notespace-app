@@ -4,6 +4,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/fi
 const welcomeMsg = document.getElementById('welcome-msg');
 const loginNow = document.getElementById('login-now');
 const guestProfile = document.getElementById('guest-profile');
+let allTodo = [];
 //all DOM elements are available inside onAuthStateChanged
 document.addEventListener('DOMContentLoaded', () => {
     onAuthStateChanged(auth, (user) => {
@@ -22,7 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(user.displayName, user.email);
             // Call loadUserNotes to fetch and display notes for the logged-in user
             loadUserNotes();
-
+            loadTODO().then((todos) => {
+                allTodo = todos;
+                updateTodoList();
+            });
         } else {
             console.log("No user signed in");
         }
@@ -39,27 +43,34 @@ const imageIcon = document.getElementById('image-icon');
 let setSelectedImage = document.querySelector('.user-selected-image');
 let noteToEdit = null;
 
+function openOverlay() {
+    newNoteBtns.forEach((newNoteBtn) => {
+        //overlay block displaying on new note button click
+        newNoteBtn.addEventListener('click', () => {
+            if (!auth.currentUser) {
+                displayAlertMessage('Login to create Notes.', 'LogIn')
+                return;
+            }
+            textArea.innerHTML = ''
+            textArea.style.background = ''
+            overlayContainer.style.display = 'flex';
+            createNoteBtn.disabled = true
+            document.querySelector('.date_icon .date').innerHTML = new Date().toLocaleDateString()
 
-newNoteBtns.forEach((newNoteBtn) => {
-    //overlay block displaying on new note button click
-    newNoteBtn.addEventListener('click', () => {
-        if (!auth.currentUser) {
-            displayAlertMessage('Login to create Notes.', 'LogIn')
-            return;
-        }
-        textArea.innerHTML = ''
-        textArea.style.background = ''
-        overlayContainer.style.display = 'flex';
-        createNoteBtn.disabled = true
-        document.querySelector('.date_icon .date').innerHTML = new Date().toLocaleDateString()
-
+        })
     })
-})
+}
+openOverlay();
+
 //create canvas btn
 let createCanvasBtns = document.querySelectorAll('.create-canvas-btn')
 createCanvasBtns.forEach((createCanvasBtn) => {
     createCanvasBtn.addEventListener('click', () => {
-        displayAlertMessage('Feature unavailable at this time.', 'OK')
+        if (!auth.currentUser) {
+            displayAlertMessage('Login to to create Canvas.', 'LogIn')
+            return;
+        }
+        window.location.href = 'canvas.html'
     })
 })
 
@@ -235,6 +246,7 @@ async function createOrUpdateNote() {
         </div>
     </section>`;
     notesContainer.appendChild(subContainer);
+
     let currentNote = subContainer.querySelector('.final-notes-container');
     subContainer.addEventListener('click', (e) => {
         editDeleteBookmarkNote(e, currentNote);
@@ -311,7 +323,7 @@ function uploadImage() {
             const reader = new FileReader();
             //triggered when the file has been successfully read
             reader.onload = (e) => {
-                console.log(e.target.result);
+                // console.log(e.target.result);
                 const image = document.createElement('img')
                 image.src = e.target.result; //the result of reading the file
                 image.classList.add('image');
@@ -407,7 +419,23 @@ function addActiveClass(e) {
     }
 }
 
-createNoteBtn.addEventListener('click', createOrUpdateNote)
+createNoteBtn.addEventListener('click', createOrUpdateNote);
+
+//keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey) {
+        //save note
+        if (e.key === 's') {
+            e.preventDefault();
+            createOrUpdateNote();
+        }
+        //create new note
+        else if (e.key.toLowerCase() === 'm') {
+            e.preventDefault();
+            openOverlay();
+        }
+    }
+}, true)
 
 //function to search the note on enter press
 function searchNotesOnKeyup() {
@@ -493,11 +521,14 @@ const allNotesBtn = document.getElementById('all-notes');
 const heroSection = document.querySelector('.hero-section');
 const dashboardTitle = document.getElementById('dashboard-title');
 const bookmarkBtn = document.getElementById('bookmarked-btn');
+const todoBtn = document.getElementById('create-todo-btn')
 
 //to show all notes on btn click
 allNotesBtn.addEventListener('click', showAllNotes);
 //to show all bookmarked notes
 bookmarkBtn.addEventListener('click', showBookmarkedNotes);
+//to show todo section
+todoBtn.addEventListener('click', showTodo);
 
 
 
@@ -505,6 +536,16 @@ bookmarkBtn.addEventListener('click', showBookmarkedNotes);
 function showAllNotes() {
     let subContainer = document.querySelectorAll('.sub-container');
     let notesContainer = document.querySelector('.notes-container');
+
+
+    let todoSection = document.querySelector('.todo-section')
+    if (todoSection) todoSection.style.display = 'none';
+    notesContainer.classList.remove('hide');
+    document.body.classList.add('bg')
+    document.querySelector('.main-container').style.backgroundImage = "unset"
+    document.querySelector('.search-and-profile').style.display = 'flex'
+
+
     let notesPresent = subContainer.length > 0;
     if (!auth.currentUser) {
         displayAlertMessage('Login to access your Notes.', 'LogIn')
@@ -534,10 +575,16 @@ function showAllNotes() {
     }
 }
 
-
+//show bookmarked notes
 function showBookmarkedNotes() {
     let subContainer = document.querySelectorAll('.sub-container');
     let notesContainer = document.querySelector('.notes-container');
+    let todoSection = document.querySelector('.todo-section')
+    if (todoSection) todoSection.style.display = 'none';
+    notesContainer.classList.remove('hide');
+    document.body.classList.add('bg')
+    document.querySelector('.main-container').style.backgroundImage = "unset"
+    document.querySelector('.search-and-profile').style.display = 'flex'
     if (!auth.currentUser) {
         displayAlertMessage('Login to access Bookmarked Notes.', 'LogIn')
         return;
@@ -572,6 +619,265 @@ function showBookmarkedNotes() {
         notesContainer.appendChild(noBookmarks);
     }
 }
+
+//show todo page
+function showTodo() {
+
+    let notesContainer = document.querySelector('.notes-container');
+    if (!auth.currentUser) {
+        displayAlertMessage('Login to create Todo lists.', 'LogIn')
+        return;
+    }
+    // Hide welcome message and hero section
+    welcomeMsg.classList.add('hide');
+    heroSection.classList.add('hide');
+    notesContainer.classList.add('hide');
+    document.body.style.backgroundImage = 'unset'
+    document.querySelector('.main-container').style.backgroundImage = "url('https://excalidraw.nyc3.cdn.digitaloceanspaces.com/lp-cms/media/home-hero.svg')"
+    dashboardTitle.innerText = '~Todo lists~';
+    document.querySelector('.search-and-profile').style.display = 'none'
+    let todoSection = document.querySelector('.todo-section')
+    todoSection.style.display = 'block';
+
+}
+
+let todoAddButton = document.getElementById('todo-add-button')
+let input = document.getElementById('todo-text-box')
+let todoUL = document.querySelector('#todoList')
+
+
+todoAddButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    addTodo();
+})
+
+async function addTodo() {
+    let todoText = input.value.trim();
+    if (todoText.length > 0) {
+        const currentUser = auth.currentUser;
+        if (!currentUser) return; // Ensure user is logged in
+
+        const userId = currentUser.uid;
+        const todosRef = collection(db, 'users', userId, 'todos');
+
+        const newTodoRef = doc(todosRef); // Create a new document reference
+
+        const todoData = {
+            id: newTodoRef.id,
+            text: todoText,
+            completed: false,
+        };
+        showLoader();
+        try {
+            await setDoc(newTodoRef, todoData);
+            allTodo.push(todoData);
+            updateTodoList();
+            input.value = '';
+        } catch (error) {
+            console.error('Error adding to-do:', error);
+            alert('Failed to add the task. Please try again.');
+        } finally {
+            removeLoader();
+        }
+    }
+}
+//function to update todo for every change in todo list
+async function updateTodoList() {
+    todoUL.innerHTML = ''; // Clear existing list in the DOM
+
+    const currentUser = auth.currentUser;
+    if (!currentUser) return;
+
+    const userId = currentUser.uid;
+    const todosRef = collection(db, 'users', userId, 'todos');
+
+    try {
+        const querySnapshot = await getDocs(todosRef);
+        allTodo = []; // Reset `allTodo`
+        querySnapshot.forEach((doc) => {
+            const todo = { ...doc.data(), id: doc.id };
+            allTodo.push(todo); // Populate the array
+            createTodo(todo, doc.id); // Render the todo in the DOM
+
+        });
+    } catch (error) {
+        console.error('Error fetching todos:', error);
+    }
+}
+//function to create todo item
+async function createTodo(todo, todoId) { // Use Firestore document ID
+    let todoLI = document.createElement('li');
+    todoLI.classList.add('todo', 'draggable_ele');
+    todoLI.draggable = 'true';
+    // Add drag events to the new to-do
+    addDragEvents(todoLI);
+    if (todo.completed) todoLI.classList.add('completed'); // Apply completed class for completed tasks
+    let todoID = 'todo-' + todoId;
+    todoLI.innerHTML = `
+        <input type="checkbox" name="checkbox" id="${todoID}">
+        <label for="${todoID}" class="custom-checkbox" title="Tick task as completed">
+            <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q65 0 123 19t107 53l-58 59q-38-24-81-37.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160q133 0 226.5-93.5T800-480q0-18-2-36t-6-35l65-65q11 32 17 66t6 70q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-56-216L254-466l56-56 114 114 400-401 56 56-456 457Z"/>
+            </svg>
+        </label>
+        <label for="${todoID}" class="todoText">${todo.text}</label>
+        <button class="delete-btn" title="Delete task">
+            <svg fill="rgb(97, 96, 96)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+            </svg>
+        </button>`;
+    todoUL.appendChild(todoLI);
+
+    // Handle checkbox state change
+    checkboxChange(todoLI, todoId);
+
+    // Handle delete action
+    deleteTODO(todoLI, todoId);
+
+    // Set checkbox checked state
+    let checkbox = todoLI.querySelector('input[type="checkbox"]');
+    checkbox.checked = todo.completed;
+
+    // Enable editing of the todo
+    makeEditable(todoLI, todoId);
+}
+//function to make todo editable
+
+function makeEditable(todoLI, todoId) { // Use Firestore doc ID instead of array index
+    let todoTextLabel = todoLI.querySelector('.todoText');
+
+    todoTextLabel.addEventListener('dblclick', () => {
+        let currentText = todoTextLabel.textContent;
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
+        input.className = 'editInput';
+
+        // Replace label with input
+        todoTextLabel.replaceWith(input);
+
+        // Save the edited text
+        // Save Edit on Enter or Blur
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') saveEdit(input, todoTextLabel, todoId);
+        });
+        input.addEventListener('blur', () => saveEdit(input, todoTextLabel, todoId));
+    });
+
+}
+// Function to save the edited text
+async function saveEdit(input, todoTextLabel, todoId) {
+    const updatedText = input.value.trim();
+    if (updatedText.length > 0 && auth.currentUser) {
+        const userId = auth.currentUser.uid;
+        const todoDocRef = doc(db, 'users', userId, 'todos', todoId);
+
+        try {
+            // Save the updated text to Firestore
+            await updateDoc(todoDocRef, { text: updatedText });
+            todoTextLabel.textContent = updatedText;
+            input.replaceWith(todoTextLabel);
+            // Update the local `allTodo` array to reflect the change
+            allTodo = allTodo.map((todo) =>
+                todo.id === todoId ? { ...todo, text: updatedText } : todo
+            );
+            console.log('Todo updated successfully in Firestore.');
+        } catch (error) {
+            console.error('Error saving edited to-do:', error);
+            displayAlertMessage('Failed to save changes. Please try again.', 'OK');
+        }
+    } else {
+        displayAlertMessage('Todo text cannot be empty.', 'OK');
+        input.replaceWith(todoTextLabel);
+    }
+}
+//function to delete the tasks
+function deleteTODO(task, todoId) {
+    let deleteButton = task.querySelector('.delete-btn');
+    deleteButton.onclick = async () => {
+        const currentUser = auth.currentUser;
+        if (!currentUser) return;
+
+        const userId = currentUser.uid;
+        const todoDocRef = doc(db, 'users', userId, 'todos', todoId);
+
+        try {
+            await deleteDoc(todoDocRef);
+            task.remove(); // Remove the task from the DOM
+        } catch (error) {
+            console.error('Error deleting todo:', error);
+            displayAlertMessage('Failed to delete task. Please try again.', 'OK');
+        }
+    };
+}
+//function to handle checkbox change
+function checkboxChange(task, todoId) {
+    let checkbox = task.querySelector('input[type="checkbox"]');
+    checkbox.addEventListener('change', async () => {
+        const currentUser = auth.currentUser;
+        if (!currentUser) return;
+
+        const userId = currentUser.uid;
+        const todoDocRef = doc(db, 'users', userId, 'todos', todoId);
+
+        try {
+            await updateDoc(todoDocRef, { completed: checkbox.checked });
+            task.classList.toggle('completed', checkbox.checked);
+            allTodo = allTodo.map((todo) =>
+                todo.id === todoId ? { ...todo, completed: checkbox.checked } : todo
+            );
+        } catch (error) {
+            console.error('Error updating todo completion state:', error);
+        }
+    });
+}
+//function to load the todos from firestore
+async function loadTODO() {
+    const currentUser = auth.currentUser;
+    if (!currentUser) return []; // Ensure user is logged in
+    const userId = currentUser.uid;
+    const todosRef = collection(db, 'users', userId, 'todos');
+
+    try {
+        const querySnapshot = await getDocs(todosRef);
+        const todos = [];
+        querySnapshot.forEach((doc) => {
+            todos.push({ ...doc.data(), id: doc.id });
+        });
+        return todos;
+    } catch (error) {
+        console.error('Error loading to-dos:', error);
+        return [];
+    }
+}
+
+//draggable todos
+let draggedEl = null;
+function addDragEvents(todoElement) {
+    todoElement.addEventListener('dragstart', (e) => {
+        todoElement.classList.add('drag_started');
+        draggedEl = todoElement; // Store the element being dragged
+    });
+
+    todoElement.addEventListener('dragend', () => {
+        todoElement.classList.remove('drag_started');
+        draggedEl = null;
+    });
+}
+
+const draggableContainer = document.querySelector('.draggable_container');
+
+if (draggableContainer) {
+    draggableContainer.addEventListener('dragover', (e) => {
+        e.preventDefault();
+    });
+    draggableContainer.addEventListener('drop', (e) => {
+        e.preventDefault();
+        if (draggedEl) draggableContainer.appendChild(draggedEl);
+    });
+}
+
+
 
 
 let modalContainer = document.getElementById('modal-container');
@@ -626,6 +932,26 @@ function removeSpinner() {
     if (spinnerOverlay) {
         spinnerOverlay.remove();
     }
+}
+
+// Function to show loader
+function showLoader() {
+    let todoBtn = document.querySelector('#todo-add-button');
+    todoBtn.innerHTML = '';
+    const loaderParent = document.createElement('div');
+    loaderParent.classList.add('small-loader-parent');
+    loaderParent.innerHTML = '<div class="small-loader"></div>';
+    todoBtn.appendChild(loaderParent);
+}
+//remove lader
+function removeLoader() {
+    const loaderParent = document.querySelector('.small-loader-parent');
+    if (loaderParent) {
+        loaderParent.remove();
+    }
+    // Restore the "Add" button text
+    const todoBtn = document.querySelector('#todo-add-button');
+    todoBtn.innerHTML = 'Add Todo';
 }
 
 const logoutButton = document.getElementById('logout');
@@ -700,6 +1026,8 @@ async function loadUserNotes() {
     }
 }
 
-
+document.querySelector('.about').addEventListener('click', () => {
+    window.location.href='about.html'
+})
 
 
