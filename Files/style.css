@@ -672,7 +672,7 @@ input[type='text']:focus-visible {
 
 .hero-section .one {
     grid-area: span 2;
-    background-image: url('./images/texture2.jpg');
+    background-image: url('../images/texture2.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
