@@ -1,4 +1,4 @@
-import { getAuth, auth, signOut, db, doc, setDoc, updateDoc, deleteDoc, collection, getDocs } from './firebase.js';
+import { getAuth, auth, signOut, db, doc, setDoc, updateDoc, deleteDoc, collection, getDocs } from '../Files/firebase.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 
 const welcomeMsg = document.getElementById('welcome-msg');
@@ -70,12 +70,14 @@ createCanvasBtns.forEach((createCanvasBtn) => {
             displayAlertMessage('Login to to create Canvas.', 'LogIn')
             return;
         }
-        window.location.href = 'canvas.html'
+        window.location.href = '../Files/canvas.html'
     })
 })
 
 //to close the note
 const closeNoteBtn = document.querySelector('#close-note');
+
+
 closeNoteBtn.addEventListener('click', () => {
     overlayContainer.style.display = 'none'
 })
@@ -283,7 +285,8 @@ async function editDeleteBookmarkNote(event, currentNote) {
 
         if (event.target.closest('#bookmark-note')) {
             const noteId = currentNote.dataset.id;
-            const noteDocRef = doc(notesRef, noteId);
+            // const noteDocRef = doc(notesRef, noteId);
+            const noteDocRef = doc(db, 'users', userId, 'notes', noteId);
             const bookmarkButton = event.target.closest('#bookmark-note');
             const bookmarkIcon = bookmarkButton.querySelector('i');
             const isCurrentlyBookmarked = bookmarkIcon.classList.contains('bookmarked');
@@ -905,7 +908,7 @@ closeModal();
 //direct to login page
 modalActionBtn.onclick = () => {
     if (modalActionBtn.innerText === 'LogIn')
-        window.open('form.html', '_blank')
+        window.open('../Files/form.html', '_blank')
     else {
         modalContainer.classList.add('out');
         setTimeout(() => {
@@ -914,7 +917,7 @@ modalActionBtn.onclick = () => {
     }
 }
 loginNow.onclick = () => {
-    window.open('form.html', '_blank')
+    window.open('../Files/form.html', '_blank')
 }
 
 
@@ -968,7 +971,7 @@ function logoutUser() {
             removeSpinner()
             displayAlertMessage('User logged out successfully.', 'OK');
             setTimeout(() => {
-                window.location.href = 'form.html'
+                window.location.href = '../Files/form.html'
             }, 3000)
         })
         .catch((error) => {
@@ -1027,7 +1030,7 @@ async function loadUserNotes() {
 }
 
 document.querySelector('.about').addEventListener('click', () => {
-    window.location.href='about.html'
+    window.location.href='../Files/about.html'
 })
 
 
