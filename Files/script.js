@@ -909,6 +909,8 @@ closeModal();
 modalActionBtn.onclick = () => {
     if (modalActionBtn.innerText === 'LogIn')
         window.open('/Files/form.html', '_blank')
+    else if(modalActionBtn.innerText === 'Yes')
+        logoutUser()
     else {
         modalContainer.classList.add('out');
         setTimeout(() => {
@@ -959,7 +961,9 @@ function removeLoader() {
 
 const logoutButton = document.getElementById('logout');
 if (logoutButton) {
-    logoutButton.addEventListener('click', logoutUser);
+    logoutButton.addEventListener('click', () => {
+        displayAlertMessage('Are you sure you want to logout?', 'Yes')
+    });
 }
 // Logout function
 function logoutUser() {
@@ -1030,7 +1034,7 @@ async function loadUserNotes() {
 }
 
 document.querySelector('.about').addEventListener('click', () => {
-    window.location.href='/Files/about.html'
+    window.location.href = '/Files/about.html'
 })
 
 
