@@ -70,7 +70,7 @@ createCanvasBtns.forEach((createCanvasBtn) => {
             displayAlertMessage('Login to to create Canvas.', 'LogIn')
             return;
         }
-        window.location.href = '../Files/canvas.html'
+        window.location.href = 'Files/canvas.html'
     })
 })
 
@@ -908,7 +908,7 @@ closeModal();
 //direct to login page
 modalActionBtn.onclick = () => {
     if (modalActionBtn.innerText === 'LogIn')
-        window.open('/Files/form.html', '_blank')
+        window.open('Files/form.html', '_blank')
     else if(modalActionBtn.innerText === 'Yes')
         logoutUser()
     else {
@@ -919,7 +919,7 @@ modalActionBtn.onclick = () => {
     }
 }
 loginNow.onclick = () => {
-    window.open('/Files/form.html', '_blank')
+    window.open('Files/form.html', '_blank')
 }
 
 
@@ -975,7 +975,7 @@ function logoutUser() {
             removeSpinner()
             displayAlertMessage('User logged out successfully.', 'OK');
             setTimeout(() => {
-                window.location.href = '/Files/form.html'
+                window.location.href = 'Files/form.html'
             }, 3000)
         })
         .catch((error) => {
@@ -1034,7 +1034,7 @@ async function loadUserNotes() {
 }
 
 document.querySelector('.about').addEventListener('click', () => {
-    window.location.href = '/Files/about.html'
+    window.location.href = 'Files/about.html'
 })
 
 
