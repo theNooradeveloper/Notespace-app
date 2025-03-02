@@ -908,7 +908,7 @@ closeModal();
 //direct to login page
 modalActionBtn.onclick = () => {
     if (modalActionBtn.innerText === 'LogIn')
-        window.open('Files/form.html', '_blank')
+        window.open('Files/form.html')
     else if(modalActionBtn.innerText === 'Yes')
         logoutUser()
     else {
@@ -919,7 +919,7 @@ modalActionBtn.onclick = () => {
     }
 }
 loginNow.onclick = () => {
-    window.open('Files/form.html', '_blank')
+    window.open('Files/form.html')
 }
 
 
