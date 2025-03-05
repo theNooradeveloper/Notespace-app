@@ -1,3 +1,4 @@
+
 import { getAuth, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signInWithPopup, GoogleAuthProvider } from './firebase.js';
 
 const loginForm = document.getElementById('login-form');
@@ -24,7 +25,7 @@ function loginUser(email, password) {
       removeSpinner();
       displayAlertMessage('Welcome back! Loggedin sucessfully', 'ok')
       setTimeout(() => {
-        window.location.href = '/index.html'
+        window.location.href = '../index.html'
       }, 3000)
     })
     .catch((error) => {
@@ -63,7 +64,7 @@ async function registerUser(email, password, name) {
     removeSpinner();
     displayAlertMessage('Registration Successful, Welcome!', 'Ok');
     setTimeout(() => {
-      window.location.href = '/index.html';
+      window.location.href = '../index.html';
     }, 3000);
   } catch (error) {
     removeSpinner();
@@ -91,7 +92,7 @@ async function googleSignIn() {
       removeSpinner();
       displayAlertMessage('Welcome! Registration successful', 'OK')
       setTimeout(() => {
-        window.location.href = '/index.html'
+        window.location.href = '../index.html'
       }, 3000)
     } else {
       updateProfile(user, { displayName: 'Guest' })
@@ -106,7 +107,7 @@ async function googleSignIn() {
         });
     }
     setTimeout(() => {
-      window.open('/index.html', '_blank');
+      window.open('../index.html', '_blank');
     }, 3000);
 
   } catch (error) {
