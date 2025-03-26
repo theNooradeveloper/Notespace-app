@@ -100,16 +100,15 @@
 
         .answer {
 
-            height: 0;
+            max-height: 0;
+            height: 100%;
             overflow: hidden;
-            transform: scale(0);
-            transition: transform 0.5s ease-in-out;
-            padding: 0;
+             transition: padding 0.2s ease-in;
+            padding: 0 15px;
         }
 
         .answer.active {
-            height: fit-content;
-            transform: scale(1);
+            max-height: fit-content;
             padding: 25px 15px;
         }
 

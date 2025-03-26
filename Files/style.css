@@ -1271,3 +1271,115 @@ input[type="checkbox"] {
     }
 
 }
+
+/* Media Queries for Responsiveness */
+
+/* Small screens (up to 600px) */
+@media (max-width: 600px) {
+    .overlay-content {
+      width: 95%;
+      height: 85vh;
+      padding: 15px;
+    }
+  
+    #my-notes-heading {
+      font-size: 1.5rem;
+    }
+  
+    .toolbar {
+      row-gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 8px;
+    }
+  
+    .basic-operations, .advanced-operations {
+      column-gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+  
+    main .textarea {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    .bg-select-container {
+      width: 20%;
+      gap: 0.4rem;
+    }
+  
+    #create-note {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+    }
+  }
+  
+  /* Medium screens (601px to 900px) */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .overlay-content {
+      width: 90%;
+      height: 80vh;
+    }
+  
+    #my-notes-heading {
+      font-size: 1.8rem;
+    }
+  
+    .toolbar {
+      row-gap: 0.8rem;
+      padding: 10px;
+    }
+  
+    .basic-operations, .advanced-operations {
+      column-gap: 1rem;
+    }
+  
+    main .textarea {
+      font-size: 15px;
+    }
+  
+    .bg-select-container {
+      width: 15%;
+      gap: 0.5rem;
+    }
+  
+    #create-note {
+      padding: 9px 18px;
+      font-size: 1rem;
+    }
+  }
+  
+  /* Large screens (900px and above) */
+  @media (min-width: 901px) {
+    .overlay-content {
+      width: 880px;
+      height: 74vh;
+    }
+  
+    #my-notes-heading {
+      font-size: 2rem;
+    }
+  
+    .toolbar {
+      row-gap: 1rem;
+      padding: 12px;
+    }
+  
+    .basic-operations, .advanced-operations {
+      column-gap: 1.5rem;
+    }
+  
+    main .textarea {
+      font-size: 16px;
+    }
+  
+    .bg-select-container {
+      width: 10%;
+      gap: 0.6rem;
+    }
+  
+    #create-note {
+      padding: 10px 20px;
+      font-size: 1rem;
+    }
+  }
+  
